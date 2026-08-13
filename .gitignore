@@ -1,0 +1,8 @@
+.env
+*.pbix
+__pycache__/
+.pytest_cache/
+node_modules/
+.vendor/
+powerbi/**/.pbi/
+powerbi/**/.cache/

@@ -1,0 +1,8 @@
+expression Server = "localhost:5434" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 0f53ce43-4ede-4fec-8bf4-abf33338ea1e
+
+	annotation PBI_ResultType = Text
+expression Database = "manufacturing_yield" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 67ed8a7d-28bf-4dc3-bb24-6154af057f84
+
+	annotation PBI_ResultType = Text

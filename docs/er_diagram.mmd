@@ -1,0 +1,17 @@
+erDiagram
+    PLANT ||--o{ PRODUCTION_LINE : contains
+    PRODUCTION_LINE ||--o{ PRODUCTION_LOT : runs
+    PRODUCT ||--o{ PRODUCTION_LOT : planned_for
+    PRODUCTION_LOT ||--o{ TEST_RESULT : produces
+    PRODUCTION_LINE ||--o{ TEST_RESULT : executes
+    PRODUCT ||--o{ TEST_RESULT : tested_as
+    TEST_STATION ||--o{ TEST_RESULT : records
+    FAILURE_MODE o|--o{ TEST_RESULT : classifies
+
+    PLANT { int plant_id PK }
+    PRODUCTION_LINE { int line_id PK int plant_id FK }
+    PRODUCT { int product_id PK numeric target_cycle_seconds }
+    TEST_STATION { int station_id PK varchar test_type }
+    FAILURE_MODE { int failure_mode_id PK varchar failure_code UK }
+    PRODUCTION_LOT { bigint lot_id PK int line_id FK int product_id FK }
+    TEST_RESULT { bigint test_result_id PK bigint lot_id FK int line_id FK int product_id FK int station_id FK int failure_mode_id FK timestamp tested_at varchar outcome numeric cycle_time_seconds }

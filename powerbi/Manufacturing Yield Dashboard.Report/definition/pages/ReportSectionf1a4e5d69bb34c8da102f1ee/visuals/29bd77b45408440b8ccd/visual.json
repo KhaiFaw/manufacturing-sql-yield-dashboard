@@ -1,0 +1,221 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "29bd77b45408440b8ccd",
+  "position": {
+    "x": 24,
+    "y": 78,
+    "z": 3000,
+    "height": 104,
+    "width": 1232,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Test Results"
+                    }
+                  },
+                  "Property": "Total Tests"
+                }
+              },
+              "queryRef": "Test Results.Total Tests",
+              "nativeQueryRef": "Total Tests"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Test Results"
+                    }
+                  },
+                  "Property": "First Pass Yield %"
+                }
+              },
+              "queryRef": "Test Results.First Pass Yield %",
+              "nativeQueryRef": "First Pass Yield %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Test Results"
+                    }
+                  },
+                  "Property": "Failed Units"
+                }
+              },
+              "queryRef": "Test Results.Failed Units",
+              "nativeQueryRef": "Failed Units"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Test Results"
+                    }
+                  },
+                  "Property": "Average Cycle Time"
+                }
+              },
+              "queryRef": "Test Results.Average Cycle Time",
+              "nativeQueryRef": "Average Cycle Time"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "outline": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D8E1EC'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4b18d0a0544501b3e621",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Test Results"
+              }
+            },
+            "Property": "Total Tests"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "220e9bcbcc07322b6dc0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Test Results"
+              }
+            },
+            "Property": "First Pass Yield %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "da77ca41471923b77994",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Test Results"
+              }
+            },
+            "Property": "Failed Units"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7e7373d20b6627d18a21",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Test Results"
+              }
+            },
+            "Property": "Average Cycle Time"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -1,0 +1,279 @@
+table 'Test Results'
+	lineageTag: eaef1a5b-f638-49b7-984e-c6d0b237d752
+
+	/// Total number of production tests in the current filter context.
+	measure 'Total Tests' = COUNTROWS('Test Results')
+		formatString: #,##0
+		lineageTag: f265f5b5-0ec3-4652-96a4-b2737e596573
+
+	/// Tests that passed on the first attempt.
+	measure 'Passed Units' = SUM('Test Results'[Pass Count])
+		formatString: #,##0
+		lineageTag: 36e670ad-1c82-4543-9b72-50c6c4a630e6
+
+	/// Tests that failed on the first attempt.
+	measure 'Failed Units' = SUM('Test Results'[Fail Count])
+		formatString: #,##0
+		lineageTag: 59a9fc63-14ec-46d6-b463-112c45bcd85d
+
+	/// First-pass yield: passed tests divided by all tests.
+	measure 'First Pass Yield %' = DIVIDE([Passed Units], [Total Tests])
+		formatString: 0.00%
+		lineageTag: 01c2c495-2f74-45df-8cc1-c48f45381054
+
+	/// Defect rate: failed tests divided by all tests.
+	measure 'Defect Rate %' = DIVIDE([Failed Units], [Total Tests])
+		formatString: 0.00%
+		lineageTag: 7a21af7b-a5a2-4eb5-8c10-470bbaf7f642
+
+	/// Mean observed cycle time in seconds.
+	measure 'Average Cycle Time' = AVERAGE('Test Results'[Cycle Time Seconds])
+		formatString: 0.0 "s"
+		lineageTag: 5b7e2487-961f-4d8f-b21a-cf218cb90782
+
+	/// Share of tests completed at or below station target cycle time.
+	measure 'Cycle Target Attainment %' = DIVIDE(CALCULATE([Total Tests], FILTER('Test Results', 'Test Results'[Cycle Time Seconds] <= 'Test Results'[Target Cycle Seconds])), [Total Tests])
+		formatString: 0.00%
+		lineageTag: 5ab5a16f-c41a-4aa5-9f00-77e51b6ac38c
+
+	column 'Test Result ID'
+		dataType: int64
+		isHidden
+		lineageTag: 0e31fa84-a392-46d8-81a2-1a7446c96212
+		summarizeBy: count
+		sourceColumn: test_result_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Test Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: dcd4534a-5e86-4ea4-90a6-93b0d0073790
+		summarizeBy: none
+		sourceColumn: test_date
+
+		variation Variation
+			isDefault
+			relationship: 306d0dec-c8fd-4a18-ad68-ec879721926f
+			defaultHierarchy: LocalDateTable_21de40b4-c227-42b9-8525-a59bedd951d2.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Tested At'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2c9ecb66-e025-4c82-a8ae-c50169aa9a69
+		summarizeBy: none
+		sourceColumn: tested_at
+
+		variation Variation
+			isDefault
+			relationship: 10fd391c-2e75-44df-8b13-78626fc29b57
+			defaultHierarchy: LocalDateTable_7e4b8b40-545f-4d45-82c4-3722bdd3787d.'Date Hierarchy'
+
+	column 'Plant Code'
+		dataType: string
+		lineageTag: e1ab5e80-6b46-4996-9e23-6a38112aa16e
+		summarizeBy: none
+		sourceColumn: plant_code
+
+	column 'Plant Name'
+		dataType: string
+		lineageTag: 3ee4a5aa-b730-4003-882d-1120aba4567d
+		summarizeBy: none
+		sourceColumn: plant_name
+
+	column 'Line Code'
+		dataType: string
+		lineageTag: 4176ecdd-92c3-49a3-a03e-8c1807f87515
+		summarizeBy: none
+		sourceColumn: line_code
+
+	column 'Line Name'
+		dataType: string
+		lineageTag: ff3d0fef-6615-42d0-ac72-69587c672728
+		summarizeBy: none
+		sourceColumn: line_name
+
+	column 'Product Code'
+		dataType: string
+		lineageTag: d48414ae-cf93-41de-9e13-9aebb6bba95a
+		summarizeBy: none
+		sourceColumn: product_code
+
+	column 'Product Name'
+		dataType: string
+		lineageTag: 3493a978-96dd-4cc7-968e-607dba169f22
+		summarizeBy: none
+		sourceColumn: product_name
+
+	column 'Product Family'
+		dataType: string
+		lineageTag: d2328dfd-f295-40eb-91d0-ce30ddb45a8a
+		summarizeBy: none
+		sourceColumn: product_family
+
+	column 'Lot Code'
+		dataType: string
+		lineageTag: a2e4ab46-e013-49bc-95f7-64032a30eb3b
+		summarizeBy: none
+		sourceColumn: lot_code
+
+	column 'Station Code'
+		dataType: string
+		lineageTag: f76807da-cbfe-41ee-b90e-5f0ab80ad520
+		summarizeBy: none
+		sourceColumn: station_code
+
+	column 'Station Name'
+		dataType: string
+		lineageTag: 2295eaf9-8f43-40dd-b91f-75279ab45d1d
+		summarizeBy: none
+		sourceColumn: station_name
+
+	column 'Test Type'
+		dataType: string
+		lineageTag: 515eee30-652e-4ef1-abbf-76a25f7ec9fe
+		summarizeBy: none
+		sourceColumn: test_type
+
+	column Shift
+		dataType: string
+		lineageTag: 76410924-cbbb-4147-85a6-03b5d88464fb
+		summarizeBy: none
+		sourceColumn: shift_name
+
+	column 'Operator Code'
+		dataType: string
+		lineageTag: 55626b2a-7db3-455b-a327-252b8b566eff
+		summarizeBy: none
+		sourceColumn: operator_code
+
+	column Outcome
+		dataType: string
+		lineageTag: 012401f0-d266-42ca-92c9-0c324eaa5c44
+		summarizeBy: none
+		sourceColumn: outcome
+
+	column 'Pass Count'
+		dataType: int64
+		lineageTag: b0225299-c2ac-4166-b3b1-52cd03ac11db
+		summarizeBy: sum
+		sourceColumn: pass_count
+
+	column 'Fail Count'
+		dataType: int64
+		lineageTag: 3e7da837-c632-4c31-86ba-f2e3309432a8
+		summarizeBy: sum
+		sourceColumn: fail_count
+
+	column 'Cycle Time Seconds'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 9f58c0cc-1dce-4c05-aa91-a25bcffe4933
+		summarizeBy: sum
+		sourceColumn: cycle_time_seconds
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Cycle Seconds'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 4f1320f8-e069-4cee-873b-48ff5579c464
+		summarizeBy: sum
+		sourceColumn: target_cycle_seconds
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cycle Variance Seconds'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 45949f2c-6a71-462c-bc92-6410eedd69be
+		summarizeBy: sum
+		sourceColumn: cycle_variance_seconds
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Measurement Value'
+		dataType: double
+		formatString: 0.000
+		lineageTag: c27c500b-43d9-4cea-b057-e122a80aa53d
+		summarizeBy: sum
+		sourceColumn: measurement_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Failure Code'
+		dataType: string
+		lineageTag: 00823154-4ae7-4e1c-8630-cdd0fbafc78f
+		summarizeBy: none
+		sourceColumn: failure_code
+
+	column 'Failure Category'
+		dataType: string
+		lineageTag: 7acd2d02-3b7c-402f-9b9e-435dbf795a93
+		summarizeBy: none
+		sourceColumn: failure_category
+
+	column 'Failure Description'
+		dataType: string
+		lineageTag: 1306bfce-eff9-4747-926b-71dbd8f79e24
+		summarizeBy: none
+		sourceColumn: failure_description
+
+	column serial_number
+		dataType: string
+		lineageTag: 611d2c20-39da-4ad8-97bd-ac36c8ff2a37
+		summarizeBy: none
+		sourceColumn: serial_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column test_year
+		dataType: int64
+		formatString: 0
+		lineageTag: f6742ce7-6fb1-40f6-835d-51c8d4cacf08
+		summarizeBy: sum
+		sourceColumn: test_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column test_week
+		dataType: int64
+		formatString: 0
+		lineageTag: e35a03b3-7551-4740-bc57-c3e7778a4635
+		summarizeBy: sum
+		sourceColumn: test_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column lower_spec_limit
+		dataType: double
+		lineageTag: 761c260b-7d6f-49fb-988e-f4f7be85b249
+		summarizeBy: sum
+		sourceColumn: lower_spec_limit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column upper_spec_limit
+		dataType: double
+		lineageTag: cdaad75a-f1d9-4d55-9237-fb68be4ca76b
+		summarizeBy: sum
+		sourceColumn: upper_spec_limit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Test Results' = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database(#"Server", #"Database"),
+					TestResults = Source{[Schema="analytics", Item="v_test_detail"]}[Data]
+				in
+					TestResults
+
+	annotation PBI_ResultType = Table

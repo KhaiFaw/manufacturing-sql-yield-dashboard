@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Manufacturing Yield Dashboard",
+    "description": "Manufacturing test yield, cycle-time, and failure-mode analysis."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "cc824904-1c4e-4e99-89dc-9754c62ec1e3"
+  }
+}

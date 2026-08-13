@@ -1,0 +1,103 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@microsoft/powerbi-desktop-bridge-cli':
+        specifier: ^0.1.2
+        version: 0.1.2
+      '@microsoft/powerbi-report-authoring-cli':
+        specifier: ^0.1.4
+        version: 0.1.4
+
+packages:
+
+  '@microsoft/powerbi-core-visual-schema@0.1.1':
+    resolution: {integrity: sha512-B318sRMjJ8Cn2LKzUmcmvl2Oplr4uOsFPh2MJFQV0Y1UzsdvJjt/Rg+mYKZXK3QtztUvu0BsuAlCMmJDihjCfg==}
+    engines: {node: '>=20.10.0'}
+
+  '@microsoft/powerbi-desktop-bridge-cli@0.1.2':
+    resolution: {integrity: sha512-N0nons2u+1W+PYQ59tmhPRMMR0ZrmPY4djOjHjpM9UyUDWySucu8S5H4fMO0ltxkykC4Ter/6Aqp4ZhMQm6ymw==}
+    engines: {node: '>=20'}
+    hasBin: true
+
+  '@microsoft/powerbi-report-authoring-cli@0.1.4':
+    resolution: {integrity: sha512-SibT9RCS7dQdqYGhU0/r1yixYZgxRsjlpKSF+a/wGczN0YRG6M9nRoFBe2d4hptwwUeqvnkjNxpo7NTUxXNIDQ==}
+    engines: {node: '>=20'}
+    hasBin: true
+
+  ajv-formats@3.0.1:
+    resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
+    peerDependencies:
+      ajv: ^8.0.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
+
+  ajv@8.20.0:
+    resolution: {integrity: sha512-Thbli+OlOj+iMPYFBVBfJ3OmCAnaSyNn4M1vz9T6Gka5Jt9ba/HIR56joy65tY6kx/FCF5VXNB819Y7/GUrBGA==}
+
+  commander@13.1.0:
+    resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
+    engines: {node: '>=18'}
+
+  fast-deep-equal@3.1.3:
+    resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
+
+  fast-uri@3.1.5:
+    resolution: {integrity: sha512-gHwA1O9LDIcKunMKhObS/HimwtehO1nPUECKAu5TpKgaO19fcWEl4bliWe1jWxVFvIXztJjjQ4L8XQ1EU9f7Jw==}
+
+  json-schema-traverse@1.0.0:
+    resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+
+  require-from-string@2.0.2:
+    resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
+    engines: {node: '>=0.10.0'}
+
+  vscode-jsonrpc@8.2.1:
+    resolution: {integrity: sha512-kdjOSJ2lLIn7r1rtrMbbNCHjyMPfRnowdKjBQ+mGq6NAW5QY2bEZC/khaC5OR8svbbjvLEaIXkOq45e2X9BIbQ==}
+    engines: {node: '>=14.0.0'}
+
+snapshots:
+
+  '@microsoft/powerbi-core-visual-schema@0.1.1': {}
+
+  '@microsoft/powerbi-desktop-bridge-cli@0.1.2':
+    dependencies:
+      commander: 13.1.0
+      vscode-jsonrpc: 8.2.1
+
+  '@microsoft/powerbi-report-authoring-cli@0.1.4':
+    dependencies:
+      '@microsoft/powerbi-core-visual-schema': 0.1.1
+      ajv: 8.20.0
+      ajv-formats: 3.0.1(ajv@8.20.0)
+      commander: 13.1.0
+
+  ajv-formats@3.0.1(ajv@8.20.0):
+    optionalDependencies:
+      ajv: 8.20.0
+
+  ajv@8.20.0:
+    dependencies:
+      fast-deep-equal: 3.1.3
+      fast-uri: 3.1.5
+      json-schema-traverse: 1.0.0
+      require-from-string: 2.0.2
+
+  commander@13.1.0: {}
+
+  fast-deep-equal@3.1.3: {}
+
+  fast-uri@3.1.5: {}
+
+  json-schema-traverse@1.0.0: {}
+
+  require-from-string@2.0.2: {}
+
+  vscode-jsonrpc@8.2.1: {}

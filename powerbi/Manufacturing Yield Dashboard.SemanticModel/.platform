@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Manufacturing Yield Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d00bb3f9-78ed-439e-8c49-4bbcf7b40d21"
+  }
+}

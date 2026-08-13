@@ -1,0 +1,4 @@
+product_code,product_name,product_family,target_cycle_seconds
+CTRL-A100,Industrial Controller A100,Controls,44.0
+SENS-B200,Smart Sensor B200,Sensors,36.0
+GW-C300,Edge Gateway C300,Gateways,58.0

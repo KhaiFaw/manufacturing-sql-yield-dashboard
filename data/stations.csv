@@ -1,0 +1,7 @@
+station_code,station_name,test_type
+AOI-1,Automated Optical Inspection 1,AOI
+AOI-2,Automated Optical Inspection 2,AOI
+ICT-1,In-Circuit Test 1,ICT
+ICT-2,In-Circuit Test 2,ICT
+FCT-1,Functional Test 1,FCT
+FCT-2,Functional Test 2,FCT

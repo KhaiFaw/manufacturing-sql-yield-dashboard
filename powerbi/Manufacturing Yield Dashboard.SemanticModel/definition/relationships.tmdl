@@ -1,0 +1,9 @@
+relationship 306d0dec-c8fd-4a18-ad68-ec879721926f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Test Results'.'Test Date'
+	toColumn: LocalDateTable_21de40b4-c227-42b9-8525-a59bedd951d2.Date
+
+relationship 10fd391c-2e75-44df-8b13-78626fc29b57
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Test Results'.'Tested At'
+	toColumn: LocalDateTable_7e4b8b40-545f-4d45-82c4-3722bdd3787d.Date

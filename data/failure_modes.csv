@@ -1,0 +1,7 @@
+failure_code,failure_category,failure_description
+FM-SOLDER,Assembly,Solder bridge
+FM-OPEN,Assembly,Open circuit
+FM-COMP,Material,Component out of tolerance
+FM-FW,Firmware,Firmware load failure
+FM-CAL,Calibration,Calibration drift
+FM-COSMETIC,Cosmetic,Cosmetic defect
