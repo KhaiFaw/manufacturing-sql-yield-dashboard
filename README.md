@@ -1,21 +1,18 @@
-<div align="center">
+# Manufacturing yield and failure analysis
 
-# 🏭 Manufacturing Test Yield & Failure Analysis
+A PostgreSQL and Power BI portfolio demonstration that turns 8,000 messy **synthetic** tester records into a normalized data model, yield trends and failure analysis.
 
-### From noisy tester exports to production-ready engineering decisions
+![Actual Power BI yield overview populated with the seeded synthetic dataset](docs/screenshots/Yield%20Overview.png)
 
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Power BI](https://img.shields.io/badge/Power%20BI-PBIP-F2C811?logo=powerbi&logoColor=111111)](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-overview)
-[![SQL](https://img.shields.io/badge/SQL-CTEs%20%7C%20Views%20%7C%20Windows-0F766E)](database/04_advanced_analysis.sql)
-[![Python](https://img.shields.io/badge/Python-Synthetic%20data-3776AB?logo=python&logoColor=white)](python/generate_data.py)
-[![Dataset](https://img.shields.io/badge/Test%20records-8%2C000-7C3AED)](data/raw_test_results.csv)
-[![PBIR validation](https://img.shields.io/badge/PBIR-0%20errors-16A34A)](powerbi/)
+**Status:** working demonstration with existing dashboard captures, deterministic source data and SQL validation. This is not confidential production data, and the measured yield is not a real factory result.
 
-An end-to-end manufacturing analytics portfolio project powered by PostgreSQL, advanced SQL, and Power BI. It turns deliberately messy production-test data into a normalized, validated model and an interactive failure-analysis dashboard.
+[SQL implementation](#sql-implementation-map) · [Reproduce](#run-locally) · [Testing](#verification) · [Portfolio](https://github.com/KhaiFaw)
 
-[Dashboard](#dashboard-preview) · [Architecture](#database-architecture) · [SQL](#sql-implementation-map) · [Findings](#findings) · [Run locally](#run-locally)
+## Engineering contributions
 
-</div>
+The project-specific work connects a seeded dataset generator, raw staging, SQL normalization/key resolution, constrained manufacturing tables, four reporting views and a Power BI semantic model. PostgreSQL and Power BI supply the database and visualization platforms. The planted line/station effects make the analysis inspectable without claiming an industrial deployment.
+
+<img src="docs/images/architecture.png" width="640" alt="Synthetic source data flows through staging, SQL validation and four analytics views to Power BI">
 
 ## At a glance
 
@@ -53,7 +50,7 @@ Power BI project: [`powerbi/Manufacturing Yield Dashboard.pbip`](powerbi/Manufac
 |---|---|
 | ![Yield overview](docs/screenshots/Yield%20Overview.png) | ![Failure analysis](docs/screenshots/Failure%20Analysis.png) |
 
-The checked-in PBIR report definition passes the official authoring validator with **0 errors**. Both screenshots were captured from Power BI Desktop after importing all 8,000 PostgreSQL records. On a fresh machine, Power BI requires the one-time local PostgreSQL credential step described below before the visuals populate.
+The previous project verification records **0 PBIR authoring errors**; that historical result is not a maintained CI badge. Both screenshots were captured from Power BI Desktop after importing all 8,000 PostgreSQL records. On a fresh machine, Power BI requires the one-time local PostgreSQL credential step described below before the visuals populate.
 
 ## ER diagram
 
@@ -87,17 +84,17 @@ The design uses foreign keys, unique constraints, check constraints, a condition
 
 ## Run locally
 
-Prerequisites: Docker Desktop, Python 3.10+, and Power BI Desktop.
+Prerequisites: a running Docker Desktop Linux engine, Python 3.10+, and Power BI Desktop for the dashboard. Python-only dataset checks do not require either GUI application. The Docker database binds only to `127.0.0.1:5434`; the documented `postgres` credentials are disposable local examples, never production credentials.
 
 ```powershell
 # 1. Generate the deterministic CSV files
 python python/generate_data.py
 
 # 2. Start PostgreSQL 16 on localhost:5434
-docker compose up -d
+docker compose up -d --wait
 
 # 3. Create, load, clean, index, view, and validate the database
-docker exec -i manufacturing-yield-postgres psql -U postgres -d postgres -f /project/database/run_all.sql
+docker compose exec -T postgres psql -U postgres -d postgres -f /project/database/run_all.sql
 ```
 
 Expected validation result:
@@ -194,10 +191,40 @@ The SQL load is designed to be rerunnable. To discard the Docker database volume
 ```powershell
 docker compose down -v
 docker compose up -d
-docker exec -i manufacturing-yield-postgres psql -U postgres -d postgres -f /project/database/run_all.sql
+docker compose exec -T postgres psql -U postgres -d postgres -f /project/database/run_all.sql
 ```
 
 Power BI source parameters are defined in TMDL at [`powerbi/Manufacturing Yield Dashboard.SemanticModel/definition/expressions.tmdl`](powerbi/Manufacturing%20Yield%20Dashboard.SemanticModel/definition/expressions.tmdl), so a different server or database can be configured without rewriting the report visuals.
+
+
+## Verification
+
+From the repository root:
+
+```powershell
+python -m unittest discover -s tests -v
+docker compose config --quiet
+docker compose up -d --wait
+docker compose exec -T postgres psql -U postgres -d postgres -f /project/database/run_all.sql
+docker compose exec -T postgres psql -U postgres -d postgres -f /project/database/06_regression.sql
+```
+
+Five host tests regenerate the CSVs in a temporary directory, compare them byte-for-byte with the committed fixture, verify repeatability and reconcile the documented counts. The additional SQL regression checks all four analytics views against the 8,000-row fixture and 7,558/442 outcomes. The proposed CI workflow also reloads the database twice to check rerun behavior. See [verification notes](docs/verification.md) for executed checks and environment limits.
+
+## Design decisions and limitations
+
+- SQL owns cleaning and analytics; Python generates fixture data only. Host tests independently check the fixture contract and are not an alternative cleaning pipeline.
+- Raw staging preserves text, but numeric/timestamp casts happen before quarantine. Arbitrarily malformed numeric/date strings can abort the load; a fully defensive importer is future work.
+- Row-level quarantine handles the documented key/domain validation path. It is not a universal recovery mechanism for every broken input.
+- Import-mode Power BI requires a local refresh and credentials on a new machine. Screenshots prove an earlier working rendering, not a current deployment.
+- Planted correlations are scenario inputs, not evidence of causal factory failures.
+- The dashboard and SQL reproduce this fixture. Deployment, operational access control and production performance have not been validated.
+
+## Roadmap and attribution
+
+Next: add malformed-input fixtures and explicit reject reasons, then test staging behavior transactionally. Keep any future real manufacturing data private until release rights and anonymization are confirmed.
+
+Original project source is published without a project-level license. No new reuse rights are assigned by this update. PostgreSQL, Power BI, the authoring tools and their documentation remain third-party work under their respective terms.
 
 ## References
 

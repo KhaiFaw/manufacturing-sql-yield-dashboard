@@ -1,13 +1,12 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: manufacturing-yield-postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     ports:
-      - "5434:5432"
+      - "127.0.0.1:5434:5432"
     volumes:
       - manufacturing_yield_pgdata:/var/lib/postgresql/data
       - ./database:/project/database:ro
