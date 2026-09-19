@@ -29,7 +29,11 @@ class DatasetTests(unittest.TestCase):
 
     def test_checked_in_inputs_match_generator(self):
         for name, data in self.generated.items():
-            self.assertEqual(data, (ROOT/'data'/name).read_bytes(), name)
+            # Git normalizes checked-in text to LF on Linux; csv emits CRLF.
+            # Ignore only that transport difference, not CSV values or spacing.
+            checked_in = (ROOT/'data'/name).read_bytes()
+            self.assertEqual(data.replace(b'\r\n', b'\n'),
+                             checked_in.replace(b'\r\n', b'\n'), name)
 
     def test_repeat_generation_is_identical(self):
         generator.main()
